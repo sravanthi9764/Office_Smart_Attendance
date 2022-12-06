@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <div>
+            <h1 style="color:white;"> Regularize Attendance </h1>
+        </div>
+        <span style="color:white;">Date: </span>
+        <input type="text" name="txtRegulDate" id="txtRegulDate" class="datepicker">&nbsp;&nbsp;&nbsp;
+        <input class="btn" type="button" value="Proceed" id="btnProceed" />
+    </div>
+
+</body>
+</html>
+@section Scripts { 
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.13.2.min.js"></script>
+    <script>
+        $(function () {
+            $("#txtRegulDate").datepicker({ dateFormat: 'mm-dd-yy' });
+        }); 
+
+        $("#btnProceed").click(function () {
+            if ($("#txtRegulDate").val() == "") {
+                alert("Please Select Regularize Date.");
+                return;
+            }
+            var obj = {
+                txtRegulDate: new Date($('#txtRegulDate').val())
+            }
+            $.ajax({
+                type: "POST",
+                data: '{obj: ' + JSON.stringify(obj) + '}',
+                url: "/Home/RegularizeAttendance",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    $("#txtRegulDate").val(""); 
+                    alert(response);
+                },
+                error: function (response) {
+                    alert("Error while Log in the Application");
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Timesheet</title>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+    <style type="text/css" rel="stylesheet">
+        .cla {
+            color: white;
+            text-align: center;
+            width: 200px
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div>
+            <h1 style="color:white;"> Timesheet </h1>
+        </div>
+        <span style="color:white;">From Date: </span>
+        <input type="text" name="txtFromDate" id="txtFromDate" class="datepicker">&nbsp;&nbsp;&nbsp;
+        <span style="color:white;">To Date: </span>
+        <input type="text" name="txtToDate" id="txtToDate" class="datepicker">&nbsp;&nbsp;&nbsp;
+        @*<button id="btnProceed">Proceed</button>*@
+        <input class="btn" type="button" value="Proceed" id="btnProceed" />
+    </div>
+    <br />
+    <div class="row" id="divTimesheet" style="display:none">
+        <div>
+            <table id="tblTimesheet">
+                <thead>
+                    <tr>
+                        <th style="color:white; font-size:16px; width:200px; text-align:center">User Name</th>
+                        <th style="color:white; font-size:16px; width:200px; text-align:center">Attendance Time</th>
+                        <th style="color:white; font-size:16px; width:200px; text-align:center">Attendance Date</th>
+                        <th style="color:white; font-size:16px; width:200px; text-align:center">Status</th>
+                        <th style="color:white; font-size:16px; width:200px; text-align:center">Regularize Status</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+@section Scripts {
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.13.2.min.js"></script>
+    
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".datepicker").datepicker({ dateFormat: 'mm-dd-yy' });
+        });
+
+        //$(function () {
+        //    $("#txtToDate").datepicker({ dateFormat: 'mm-dd-yy' });
+        //});
+
+
+        $("#btnProceed").click(function () {
+           // var obj = {};
+            //obj.FromDate = $('#txtFromDate').val();
+            //obj.ToDate = $('#txtToDate').val();
+            //obj.FromDate =  dateFormat($('#txtFromDate').val(), "mm/dd/yyyy HH:MM:ss");
+            //obj.ToDate = dateFormat($('#txtToDate').val(), "mm/dd/yyyy HH:MM:ss");
+            //$('#tblTimesheet').DataTable().destroy();
+            var obj = {
+                FromDate: new Date($('#txtFromDate').val()),
+                ToDate: new Date($('#txtToDate').val())
+            }
+            //obj.FromDate = New Date($('#txtFromDate').val());
+            //obj.ToDate = New Date($('#txtToDate').val());
+            $.ajax({
+                url: "/Home/Proceed",
+                method: "post",
+                //traditional: true,
+                //async: false,
+                //cache: false,
+                data: '{obj: ' + JSON.stringify(obj) + '}',
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    $('#divTimesheet').show();
+                    var getData = JSON.parse(response);
+                    //var getData = response;
+                    
+                    $('#tblTimesheet').DataTable({
+                        data: getData,
+                        'destroy': true,
+                        'paging': true,
+                        'lengthChange': true,
+                        'searching': true,
+                        'ordering': true,
+                        'info': true,
+                        'autoWidth': true,
+                        columns: [
+                            { 'data': 'username', 'className':'cla'},
+                            { 'data': 'attendancesDatetime', 'className': 'cla' },
+                            { 'data': 'attendancesDate', 'className': 'cla' },
+                            { 'data': 'Status', 'className': 'cla' },
+                            { 'data': 'Remark', 'className': 'cla' },
+                        ],
+                    });
+                },
+                error: function (response) {
+                    alert("Error while Log in the Application");
+                }
+            });
+        });
+    </script>
+}

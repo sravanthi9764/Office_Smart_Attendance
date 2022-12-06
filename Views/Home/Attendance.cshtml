@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <title>Employee Sign Up Form</title>
+</head>
+<body>
+    <div class="signup-form LogIn">
+        <h1> Attendance </h1>
+        <button class="btn" id="btnAttendence">ATTENDENCE</button>
+        @*<br />
+        <br />
+        <br />
+        <button class="btn" id="btnRegularize">REGULARIZE</button>
+        <br />
+        <br />
+        <br />
+        <div class="col-md-12 Regularize">
+            <form>
+                <div class="col-md-12">
+                    <span style="color:white;">Regularize Date: </span>
+                </div>
+                <br />
+                <br />
+                <div class="col-md-12">
+                    <input type="text" name="txtRegularizeDate" id="txtRegularizeDate" class="datepicker">
+                </div>
+                <br />
+                <br />
+                <div class="col-md-12">
+                    <button class="btn" id="btnProceed">Proceed</button>
+                </div>
+                <br />
+                <br />
+            </form>
+        </div>*@
+    
+    </div>
+</body>
+</html>
+@section Scripts {
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.13.2.min.js"></script>
+    <script>
+        $(function () {
+            $("#txtRegularizeDate").datepicker({ dateFormat: 'mm-dd-yy' });
+        });
+        $("#btnAttendence").click(function () {
+            $.ajax({
+                type: "POST",
+                traditional: true,
+                async: false,
+                cache: false,
+                url: "/Home/SaveAttendance",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    alert(response);
+                },
+                error: function (response) {
+                    alert("Error while Log in the Application");
+                }
+            });
+        });
+
+        //$("#btnRegularize").click(function () {
+        //    $(".Regularize").show();
+        //});
+
+        //$("#btnProceed").click(function () {
+        //    //var obj = {};
+        //    //obj.RegularizeDate = $('#txtRegularizeDate').val();
+        //    var obj = {
+        //        RegularizeDate: new Date($('#txtRegularizeDate').val())
+        //    }
+        //    $.ajax({
+        //        type: "POST",
+        //        data: '{obj: ' + JSON.stringify(obj) + '}',
+        //        url: "/Home/RegularizeAttendance",
+        //        dataType: "json",
+        //        contentType: "application/json; charset=utf-8",
+        //        success: function (response) {
+        //            $("#txtRegularizeDate").val("");
+        //            $(".Regularize").hide();
+        //            alert(response);
+        //        },
+        //        error: function (response) {
+        //            alert("Error while Log in the Application");
+        //        }
+        //    });
+        //});
+    </script>
+}

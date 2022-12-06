@@ -1,0 +1,83 @@
+﻿@*@model Attendance.Models.RegistrationDetails*@
+@using Attendance.Models
+
+@model RegistrationDetails
+
+@{
+    Layout = null;
+    ViewBag.Title = "Login Page";
+    if (ViewBag.Message != null)
+    {
+        <span style="text-align:center; font-size:25px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@ViewBag.Message</span>
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <title>Employee Sign Up Form</title>
+    <style type="text/css">
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-form Registration">
+        <h1> Signup Form </h1>
+        @using (Html.BeginForm("UserRegistration", "Home", FormMethod.Post))
+        {
+            <form>
+                <div class="txt">
+                    <i class="fa fa-user"></i>
+                    @Html.TextBoxFor(a => a.Name, new { @placeholder = "User Name" })
+                    @Html.ValidationMessageFor(a => a.Name, "", new { @class = "error" })
+                </div>
+                <div class="txt">
+                    <i class="fa fa-user"></i>
+                    @Html.TextBoxFor(a => a.FirstName, new { @placeholder = "First Name" })
+                    @Html.ValidationMessageFor(a => a.FirstName, "", new { @class = "error" })
+                </div>
+                <div class="txt">
+                    <i class="fa fa-user"></i>
+                    @Html.TextBoxFor(a => a.LastName, new { @placeholder = "Last Name" })
+                    @Html.ValidationMessageFor(a => a.LastName, "", new { @class = "error" })
+                </div>
+                <div class="txt">
+                    <i class="fa fa-user"></i>
+                    @Html.TextBoxFor(a => a.Designation, new { @placeholder = "Designation" })
+                    @Html.ValidationMessageFor(a => a.Designation, "", new { @class = "error" })
+                </div>
+                <div class="txt">
+                    <i class="fa fa-envelope"></i>
+                    @Html.TextBoxFor(a => a.Email, new { @placeholder = "Email" })
+                    @Html.ValidationMessageFor(a => a.Email, "", new { @class = "error" })
+                </div>
+                <div class="txt">
+                    <i class="fa fa-phone"></i>
+                    @Html.TextBoxFor(a => a.Phone, new { @placeholder = "Phone" })
+                    @Html.ValidationMessageFor(a => a.Phone, "", new { @class = "error" })
+                </div>
+                <div class="txt">
+                    <i class="fa fa-lock"></i>
+                    @Html.PasswordFor(a => a.UPassword, new { @placeholder = "Password" })
+                    @Html.ValidationMessageFor(a => a.UPassword, "", new { @class = "error" })
+                </div>
+                <div class="txt">
+                    <i class="fa fa-lock"></i>
+                    @Html.PasswordFor(a => a.UCPassword, new { @placeholder = "Confirm Password" })
+                    @Html.ValidationMessageFor(a => a.UCPassword, "", new { @class = "error" })
+                </div> 
+                <div class="class=" col-md-10">
+                    Role: &emsp;&emsp; User  : @Html.RadioButtonFor(model => model.Role, "User", new { @checked = true, @text = "User" }) &emsp;&emsp; Admin : @Html.RadioButtonFor(model => model.Role, "Admin", new { @text = "Admin" })
+                </div>
+                <input class="btn" type="submit" value="SUBMIT" />
+                <input class="btn" type="button" value="CANCEL" onclick="location.href='@Url.Action("Login", "Home")'" />
+            </form>
+        }
+    </div>
+</body>
+</html>
