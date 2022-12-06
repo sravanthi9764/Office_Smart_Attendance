@@ -1,0 +1,68 @@
+@import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+body
+{
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif;
+    background:url(../img/background-learner1.jpg) no-repeat;
+    background-size: cover;
+}
+
+.signup-form h1
+{
+    float: left;
+    font-size: 40px;
+    border-bottom: 4px solid #4caf50;
+    margin-bottom: 50px;
+    padding: 13px 0px
+}
+
+.signup-form
+{
+    width: 280px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    color: #fff;
+}
+
+.btn
+{
+    width: 100%;
+    background: #4caf50;
+    border: none;
+    color: #fff;
+    padding: 10px 05px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.txt
+{
+    width: 100%;
+    overflow: hidden;
+    font-size: 20px;
+    padding: 8px 0px;
+    margin: 8px 0px;
+    border-bottom: 1px solid #4caf50;
+}
+
+.txt input
+{
+    border: none;
+    outline: none;
+    background: none;
+    color: #fff;
+    font-size: 18px;
+    width: 80%;
+    float: left;
+    margin: 0 10px;
+}
+
+.txt i
+{
+    width: 26px;
+    float: left;
+    text-align: center;
+}
